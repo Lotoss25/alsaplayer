@@ -58,7 +58,7 @@ struct snd_compr_tstamp {
 	__u32 sampling_rate;
 	uint64_t timestamp;
 }
-#if 1
+#if 0
  __attribute__((packed, aligned(4)))
 #endif
 ;
