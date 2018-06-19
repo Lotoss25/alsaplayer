@@ -5,7 +5,7 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := flac
 
 LOCAL_SRC_FILES += decoder.c main.c
-LOCAL_CFLAGS += -O3 -Wall -DBUILD_STANDALONE -finline-functions -fPIC -I. -Iinclude
+LOCAL_CFLAGS += -O3 -Wall -DBUILD_STANDALONE -finline-functions -fPIC -I$(LOCAL_PATH)/.. -I$(LOCAL_PATH)/../include
 
 ifeq ($(TARGET_ARCH_ABI),armeabi-v7a)
 LOCAL_CFLAGS += -DCPU_ARM
