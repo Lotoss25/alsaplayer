@@ -242,6 +242,7 @@ extern int xml_dev_is_mmapped(void *xml);
 extern int xml_dev_exists(void *xml, int device);  /* used with device=-1 in xml_dev_open */	
 extern struct nvset *xml_dev_find_ctls(void *xml, const char *name, const char *value);
 extern struct perset *xml_dev_find_persets(void *xml);
+extern int xml_get_mixer_path(void *xml, char* path, size_t length);
 
 /* for audio_platform_info.xml */
 #ifdef ACDB_TEST

@@ -324,13 +324,15 @@ int alsa_select_device(playback_ctx *ctx, int card, int device)
 #if defined(ANDROID) || defined(ANDLINUX)
 	    if(xml_dev_is_builtin(xml_dev) && !ctx->xml_mixp) {
 		char mpf[PATH_MAX], cardname[128], *cname;
-		strcpy(cardname, priv->card_name);
-		cname = strtok(cardname, "-");
-		if(cname && (cname = strtok(0, "-"))) sprintf(mpf, "/system/etc/mixer_paths_%s.xml", cname);
-		else strcpy(mpf, "/system/etc/mixer_paths.xml");
+		if (!xml_get_mixer_path(xml_dev, mpf, PATH_MAX)) {
+			strcpy(cardname, priv->card_name);
+			cname = strtok(cardname, "-");
+			if(cname && (cname = strtok(0, "-"))) sprintf(mpf, "/system/etc/mixer_paths_%s.xml", cname);
+			else strcpy(mpf, "/system/etc/mixer_paths.xml");
+		}
 		ctx->xml_mixp = xml_mixp_open(mpf);
-	        if(!ctx->xml_mixp) log_info("Mixer XML file %s missing", mpf);
-	        else log_info("Mixer XML file %s opened", mpf);
+		if(!ctx->xml_mixp) log_info("Mixer XML file %s missing", mpf);
+		else log_info("Mixer XML file %s opened", mpf);
 	    }
 	    if(ctx->xml_mixp) {
 		priv->nv_start = xml_mixp_find_control_set(ctx->xml_mixp, "headphones");

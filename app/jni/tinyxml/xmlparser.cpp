@@ -380,6 +380,16 @@ extern "C" struct perset *xml_dev_find_persets(void *xml)
     return ret;	
 }
 
+extern "C" int xml_get_mixer_path(void *xml, char* path, size_t length)
+{
+	DeviceXML *m = (DeviceXML *) xml;
+	const char* val = 0;
+	if(!m || !m->is_valid()) return 0;
+	val = m->get_card_root()->Attribute("mixer_path");
+	if (val) strncpy(path, val, length);
+	return 1;
+}
+
 #ifdef ACDB_TEST
 extern "C" int xml_get_acdb_id(const char *file, const char *devname) 
 {
